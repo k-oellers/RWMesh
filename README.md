@@ -1,13 +1,19 @@
 # RWMesh
 
-PyTorch implementation of self-supervised learning on meshes using random walks and heat kernel signature, which is inspired by MeshWalker [MeshWalker: Deep Mesh Understanding by Random Walks](https://arxiv.org/abs/2006.05353). Original tensorflow implementation can be found [here](https://github.com/AlonLahav/MeshWalker). The processing of segmentation data is based on the [MeshCNN](https://github.com/ranahanocka/MeshCNN).
+<p align="center">
+  <img src="https://github.com/k-oellers/RWMesh/blob/main/CatHKS.png" width="200" height="200">
+</p>
+
+PyTorch implementation of learning on meshes using random walks, which is inspired by [MeshWalker](https://arxiv.org/abs/2006.05353). The model performs random walks on the edges of the mesh to generate a sequence of vertices. The relative positions of the vertices are used by the model to solve the classification and segmentation tasks. In contrast to the MeshWalker, in addition to the positions of the vertices, the values of a spetral descriptor at the corresponding vertices are used, which improves the accuracy of the model for deformable meshes. Furthermore, it has the advantage that the model is better protected against [adversarial attacks](https://arxiv.org/pdf/2202.07453.pdf) than other approaches by using spectral descriptors like the heat kernel signature. In addition, self-supervised training with [Barlow Twins](https://arxiv.org/abs/2103.03230) is possible, where two walks are performed on the same mesh and mapped close in feature space.
+
+Original tensorflow implementation of the MeshWalker can be found [here](https://github.com/AlonLahav/MeshWalker). The processing of segmentation data is based on the [MeshCNN](https://github.com/ranahanocka/MeshCNN).
 
 The package includes
 
 - The attention-based encoder along with the reimplemented RNN-based encoder from MeshWalker
 - Optional heat kernel signature or wave kernel signature as input for the encoder
-- Self-supervised learning using a modified BarlowTwins
-- Adversarial attack on mesh-based networks [Random Walks for Adversarial Meshes](https://arxiv.org/pdf/2202.07453.pdf)
+- Self-supervised learning using a modified Barlow Twins implementation
+- Adversarial attack on mesh-based networks.
 - Unittests
 
 ## Installation
@@ -21,13 +27,13 @@ pip install -r requirements.txt
 
 The model was evaluated with the following datasets:
 
-- [Engraved Cubes](https://arxiv.org/pdf/1809.05910.pdf)
-- [Coseg](https://modelnet.cs.princeton.edu/)
-- [Shrec11](http://reuter.mit.edu/blue/papers/shrec11/shrec11.pdf)
+- Non-deformable mesh classification dataset [Engraved Cubes](https://arxiv.org/pdf/1809.05910.pdf)
+- Deformable mesh segmentation dataset [Coseg](https://modelnet.cs.princeton.edu/)
+- Deformable mesh classification dataset [Shrec11](http://reuter.mit.edu/blue/papers/shrec11/shrec11.pdf)
 
 ## Usage
 
-### Training
+### Supervised learning
 
 Model can be trained by running **train.py**.
 
@@ -37,6 +43,15 @@ python train.py --dataset datasets/shrec16 --default_config
 # uses cubes dataset to train the rnn encoder for 1000 epochs with 2 walks and sequence length 100
 python train.py --dataset datasets/Cubes --model rnn --epochs 1000 --walks 2 --sequence_length 100 --model_size 512
 ```
+
+To get help with the input parameters, train.py can also be called with -h:
+
+```
+# get description for all input parameters
+python train.py -h
+```
+
+### Self-supervised learning
 
 It can also be trained self-supervised (with online finetuning)
 
@@ -50,13 +65,6 @@ Using the name, a pretrained network can be finetuned with a specific amount of 
 ```
 # finetune pretrained model using 50% of the labels with default configs
 python train.py --dataset datasets/shrec16 --default_config --self_supervised barlow --name test --pretrained --finetune 0.5 --walks 2
-```
-
-To get help with the input parameters, train.py can also be called with -h:
-
-```
-# get description for all input parameters
-python train.py -h
 ```
 
 ### Testing
