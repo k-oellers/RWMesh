@@ -1,0 +1,14 @@
+{
+  "epochs": 1500,
+  "dataroot": "datasets/Coseg/vases",
+  "sequence_length": 300,
+  "model_size": 2048,
+  "nlayers": 7,
+  "self_supervised": "barlow",
+  "hidden_dim": 512,
+  "learning_rate": 1.75e-05,
+  "eig_basis": 16,
+  "edge_drop_deg": 0.5,
+  "edge_add": 0.5,
+  "walks": 2
+}

@@ -1,0 +1,13 @@
+{
+  "epochs": 1500,
+  "dataroot": "datasets/Cubes",
+  "sequence_length": 200,
+  "model_size": 256,
+  "nlayers": 5,
+  "self_supervised": "barlow",
+  "hidden_dim": 512,
+  "learning_rate": 1.75e-05,
+  "edge_drop": 0.15,
+  "edge_add": 0.5,
+  "walks": 2
+}

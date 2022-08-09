@@ -1,0 +1,13 @@
+{
+  "epochs": 2000,
+  "dataroot": "datasets/shrec16",
+  "sequence_length": 100,
+  "model_size": 2048,
+  "nlayers": 5,
+  "self_supervised": "barlow",
+  "hidden_dim": 256,
+  "learning_rate": 1.75e-05,
+  "eig_basis": 16,
+  "edge_drop": 0.3,
+  "walks": 4
+}

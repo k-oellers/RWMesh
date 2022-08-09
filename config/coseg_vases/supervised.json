@@ -1,0 +1,11 @@
+{
+  "epochs": 250,
+  "dataroot": "datasets/Coseg/vases",
+  "sequence_length": 300,
+  "model_size": 256,
+  "nlayers": 5,
+  "hidden_dim": 512,
+  "learning_rate": 0.0002,
+  "eig_basis": 16,
+  "walks": 4
+}
