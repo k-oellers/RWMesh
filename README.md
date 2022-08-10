@@ -22,14 +22,13 @@ The package includes
 pip install -r requirements.txt
 ```
 
-
 ## Datasets
 
 The model was evaluated with the following datasets:
 
-- Non-deformable mesh classification dataset [Engraved Cubes](https://arxiv.org/pdf/1809.05910.pdf)
-- Deformable mesh segmentation dataset [Coseg](https://modelnet.cs.princeton.edu/)
-- Deformable mesh classification dataset [Shrec11](http://reuter.mit.edu/blue/papers/shrec11/shrec11.pdf)
+- Non-deformable mesh classification dataset [Engraved Cubes](https://arxiv.org/pdf/1809.05910.pdf). ([Download link](https://www.dropbox.com/s/34vy4o5fthhz77d/coseg.tar.gz))
+- Deformable mesh segmentation dataset [Coseg](https://modelnet.cs.princeton.edu/). ([Download link](https://www.dropbox.com/s/34vy4o5fthhz77d/coseg.tar.gz))
+- Deformable mesh classification dataset [Shrec11](http://reuter.mit.edu/blue/papers/shrec11/shrec11.pdf). ([Download link](https://www.dropbox.com/s/w16st84r6wc57u7/shrec_16.tar.gz))
 
 ## Usage
 
@@ -40,8 +39,8 @@ Model can be trained by running **train.py**.
 ```
 # train transformer model supervised using shrec11 dataset with default configs
 python train.py --dataset datasets/shrec16 --default_config
-# uses cubes dataset to train the rnn encoder for 1000 epochs with 2 walks and sequence length 100
-python train.py --dataset datasets/Cubes --model rnn --epochs 1000 --walks 2 --sequence_length 100 --model_size 512
+# uses cubes dataset to train the rnn encoder for 1000 epochs with 2 walks, sequence length 100 and without spectral signature
+python train.py --dataset datasets/Cubes --model rnn --epochs 1000 --walks 2 --sequence_length 100 --model_size 512 --eig_basis 0
 ```
 
 To get help with the input parameters, train.py can also be called with -h:
