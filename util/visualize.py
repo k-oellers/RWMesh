@@ -7,6 +7,8 @@ import data
 from typing import Union, List, Type
 from matplotlib.colors import Normalize
 
+import util
+
 
 def get_color_map(color_map: str) -> Union[List, np.ndarray]:
     """
@@ -92,7 +94,9 @@ def save_obj(mesh: data.Mesh, save_path: str) -> None:
     """
 
     save_mesh = trimesh.Trimesh(faces=mesh.faces, vertices=mesh.vertices)
-    trimesh.exchange.export.export_mesh(save_mesh, f'{save_path}.obj', file_type='obj')
+    path = f'{save_path}.obj'
+    util.ensure_dir_exists(path)
+    trimesh.exchange.export.export_mesh(save_mesh, path, file_type='obj')
 
 
 def write_mesh_colors(mesh: data.Mesh, path: str, colors: np.ndarray) -> None:

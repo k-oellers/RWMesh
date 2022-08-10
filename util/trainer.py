@@ -520,7 +520,7 @@ class Trainer:
         """
         modified_meshes = []
         criterion = self.get_criterion()
-        rng = tqdm(range(len(self.test_set)))
+        rng = tqdm(range(len(self.test_set.dataset)))
         iterations = []
         l2_loss = []
         state_dict = copy.deepcopy(self.imi_model.state_dict())

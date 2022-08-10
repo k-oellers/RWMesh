@@ -49,7 +49,7 @@ def ensure_dir_exists(directory: str) -> None:
     :param directory: path to the directory
     """
 
-    if os.path.basename(directory).endswith('.pt'):
+    if '.' in os.path.basename(directory):
         directory = os.path.dirname(directory)
     if not os.path.exists(directory):
         os.makedirs(directory)
